@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  loki:
+    image: grafana/loki
+    container_name: loki_container
+    volumes:
+      - ./config/loki/loki.yml:/etc/loki/loki.yml
+      - loki_data:/data/loki
+    command: -config.file=/etc/loki/loki.yml 
+    networks:
+      - monitoring_network
+    ports:
+      - 3100:3100
+
   promtail:
     image: grafana/promtail:latest
     container_name: promtail_container
@@ -16,6 +28,7 @@ services:
 
 volumes:
   promtail_data:
+  loki_data:
 
 networks:
   monitoring_network:
