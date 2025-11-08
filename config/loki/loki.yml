@@ -12,21 +12,9 @@ common:
     kvstore:
       store: inmemory
 
-# This block defines *where* data is stored
 storage_config:
   filesystem:
-    chunks_directory: chunks
-    rules_directory: rules
-  
-  tsdb_shipper:
-    active_index_directory: tsdb-index
-    cache_location: tsdb-cache
-
-compactor:
-  working_directory: /data/loki/compactor
-  retention_enabled: true
-  compaction_interval: 10m
-  retention_delete_delay: 2h
+    directory: /data/loki/chunks
 
 schema_config:
   configs:
@@ -35,8 +23,19 @@ schema_config:
       object_store: filesystem
       schema: v13
       index:
-        prefix: index_
+        prefix: index_ 
         period: 24h
+
+ruler:
+  storage:
+    filesystem:
+      directory: /data/loki/rules
+
+compactor:
+  working_directory: /data/loki/compactor
+  retention_enabled: true
+  compaction_interval: 10m
+  retention_delete_delay: 2h
 
 limits_config:
   retention_period: 7d 
@@ -52,9 +51,6 @@ query_range:
       embedded_cache:
         enabled: true
         max_size_mb: 100
-
-ruler:
-  alertmanager_url: http://localhost:9093
 
 analytics:
   reporting_enabled: false
