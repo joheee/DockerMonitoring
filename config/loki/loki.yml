@@ -15,6 +15,16 @@ common:
 storage_config:
   filesystem:
     directory: /data/loki/chunks
+  
+  tsdb_shipper:
+    active_index_directory: /data/loki/tsdb-index
+    cache_location: /data/loki/tsdb-cache
+
+compactor:
+  working_directory: /data/loki/compactor
+  retention_enabled: true
+  compaction_interval: 10m
+  retention_delete_delay: 2h
 
 schema_config:
   configs:
@@ -23,19 +33,15 @@ schema_config:
       object_store: filesystem
       schema: v13
       index:
-        prefix: index_ 
+        prefix: index_
         period: 24h
 
 ruler:
+  alertmanager_url: http://localhost:9093
   storage:
-    filesystem:
+    type: local
+    local:
       directory: /data/loki/rules
-
-compactor:
-  working_directory: /data/loki/compactor
-  retention_enabled: true
-  compaction_interval: 10m
-  retention_delete_delay: 2h
 
 limits_config:
   retention_period: 7d 
