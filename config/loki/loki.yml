@@ -14,13 +14,6 @@ common:
 storage_config:
   filesystem:
     directory: /data/loki
-  
-  # --- THIS IS THE NEW SECTION THAT FIXES THE ERROR ---
-  tsdb_shipper:
-    # This is the directory for the index files being built
-    active_index_directory: /data/loki/tsdb-index
-    # This is where Loki caches data
-    cache_location: /data/loki/tsdb-cache
 
 schema_config:
   configs:
