@@ -21,6 +21,7 @@ storage_config:
     cache_location: /data/loki/tsdb-cache
 
 compactor:
+  delete_request_store: filesystem
   working_directory: /data/loki/compactor
   retention_enabled: true
   compaction_interval: 10m
