@@ -6,15 +6,23 @@ server:
 
 common:
   instance_addr: 127.0.0.1
-  path_prefix: /tmp/loki
-  storage:
-    filesystem:
-      chunks_directory: /tmp/loki/chunks
-      rules_directory: /tmp/loki/rules
+  path_prefix: /data/loki
   replication_factor: 1
   ring:
     kvstore:
       store: inmemory
+
+storage_config:
+  filesystem:
+    chunks_directory: /data/loki/chunks
+    rules_directory: /data/loki/rules
+  
+  tsdb_shipper:
+    active_index_directory: /data/loki/tsdb-index
+    cache_location: /data/loki/tsdb-cache
+
+compactor:
+  working_directory: /data/loki/compactor
 
 frontend:
   max_outstanding_per_tenant: 2048
@@ -27,6 +35,7 @@ limits_config:
   ingestion_rate_mb: 50000
   ingestion_burst_size_mb: 50000
   volume_enabled: true
+  retention_period: 1h
 
 query_range:
   results_cache:
