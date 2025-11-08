@@ -4,9 +4,10 @@ services:
   loki:
     image: grafana/loki
     container_name: loki_container
+    user: root
     volumes:
       - ./config/loki/loki.yml:/etc/loki/loki.yml
-      - loki_data:/data
+      - loki_data:/data/loki
     command: -config.file=/etc/loki/loki.yml 
     networks:
       - monitoring_network

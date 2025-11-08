@@ -6,11 +6,11 @@ server:
 
 common:
   instance_addr: 127.0.0.1
-  path_prefix: /data
+  path_prefix: /data/loki
   storage:
     filesystem:
-      chunks_directory: /data/chunks
-      rules_directory: /data/rules
+      chunks_directory: /data/loki/chunks
+      rules_directory: /data/loki/rules
   replication_factor: 1
   ring:
     kvstore:
