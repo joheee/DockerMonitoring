@@ -37,6 +37,18 @@ services:
     networks:
       - monitoring_network
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_container
+    user: root
+    restart: always
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring_network
+    ports:
+      - 60030:9090
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor_container
@@ -72,6 +84,7 @@ volumes:
   grafana_data:
   promtail_data:
   loki_data:
+  prometheus_data:
 
 networks:
   monitoring_network:
