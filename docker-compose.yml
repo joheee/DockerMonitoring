@@ -12,6 +12,8 @@ services:
     command: -config.file=/etc/promtail/promtail.yml
     networks:
       - monitoring_network
+    ports:
+      - 9080:9080
 
 volumes:
   promtail_data:
