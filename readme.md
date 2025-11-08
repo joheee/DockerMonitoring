@@ -11,7 +11,7 @@ This repository contains the `docker-compose.yml` and configuration files to dep
 ```
 config/ 
 ├── loki/
-|   └── promtail.yml
+|   └── loki.yml
 └── promtail/
     └── promtail.yml
 docker-compose.yml
