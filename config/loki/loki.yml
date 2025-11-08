@@ -4,18 +4,20 @@ server:
   http_listen_port: 3100
   grpc_listen_port: 9096
 
-# This block is for settings shared across all Loki components
 common:
-  storage:
-    filesystem:
-      directory: /data/loki
+  # This section is for shared settings
+  instance_addr: 127.0.0.1
   replication_factor: 1
   ring:
-    instance_addr: 127.0.0.1
     kvstore:
       store: inmemory
 
-# This defines how Loki stores its data and index
+# THIS IS THE CORRECTED TOP-LEVEL BLOCK
+storage_config:
+  filesystem:
+    # This is the directory *inside the container* where Loki will store its data
+    directory: /data/loki
+
 schema_config:
   configs:
     - from: 2024-01-01
@@ -26,6 +28,9 @@ schema_config:
         prefix: index_
         period: 24h
 
-# THIS IS THE SECTION YOU REQUESTED
+# This is where you set your retention policy
 limits_config:
-  retention_period: 1h
+  # Using a safer 24-hour retention
+  retention_period: 24h
+  # Or, use a size-based cap
+  # retention_size: 30GB
