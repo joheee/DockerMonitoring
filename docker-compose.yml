@@ -6,7 +6,7 @@ services:
     container_name: loki_container
     volumes:
       - ./config/loki/loki.yml:/etc/loki/loki.yml
-      - loki_data:/data/loki
+      - loki_data:/data
     command: -config.file=/etc/loki/loki.yml 
     networks:
       - monitoring_network
