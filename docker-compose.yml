@@ -54,7 +54,7 @@ services:
       - 60010:8080
 
   node_exporter:
-    image: prom/node_exporter:latest
+    image: prom/node-exporter:latest
     container_name: node_exporter_container
     user: root
     restart: always
