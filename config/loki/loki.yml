@@ -5,18 +5,22 @@ server:
   grpc_listen_port: 9096
 
 common:
-  # This section is for shared settings
   instance_addr: 127.0.0.1
   replication_factor: 1
   ring:
     kvstore:
       store: inmemory
 
-# THIS IS THE CORRECTED TOP-LEVEL BLOCK
 storage_config:
   filesystem:
-    # This is the directory *inside the container* where Loki will store its data
     directory: /data/loki
+  
+  # --- THIS IS THE NEW SECTION THAT FIXES THE ERROR ---
+  tsdb_shipper:
+    # This is the directory for the index files being built
+    active_index_directory: /data/loki/tsdb-index
+    # This is where Loki caches data
+    cache_location: /data/loki/tsdb-cache
 
 schema_config:
   configs:
@@ -28,9 +32,5 @@ schema_config:
         prefix: index_
         period: 24h
 
-# This is where you set your retention policy
 limits_config:
-  # Using a safer 24-hour retention
-  retention_period: 24h
-  # Or, use a size-based cap
-  # retention_size: 30GB
+  retention_period: 1h
