@@ -11,16 +11,16 @@ common:
     kvstore:
       store: inmemory
 
-storage_config:
-  filesystem:
-    directory: /data/loki
+# storage_config:
+#   filesystem:
+#     directory: /data/loki
   
-  tsdb_shipper:
-    active_index_directory: /data/loki/tsdb-index
-    cache_location: /data/loki/tsdb-cache
+#   tsdb_shipper:
+#     active_index_directory: /data/loki/tsdb-index
+#     cache_location: /data/loki/tsdb-cache
 
-compactor:
-  working_directory: /data/loki/compactor
+# compactor:
+#   working_directory: /data/loki/compactor
 
 schema_config:
   configs:
