@@ -44,10 +44,11 @@ services:
     restart: always
     volumes:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--storage.tsdb.retention.time=7d'
     networks:
       - monitoring_network
-    ports:
-      - 60030:9090
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -62,8 +63,6 @@ services:
       - /dev/disk:/dev/disk:ro
     networks:
       - monitoring_network
-    ports:
-      - 60010:8080
 
   node_exporter:
     image: prom/node-exporter:latest
@@ -77,8 +76,6 @@ services:
       - '--path.rootfs=/host'
     networks:
       - monitoring_network
-    ports:
-      - 60020:9100
 
 volumes:
   grafana_data:
