@@ -22,8 +22,6 @@ services:
     command: -config.file=/etc/loki/loki.yml 
     networks:
       - monitoring_network
-    ports:
-      - 3100:3100
 
   promtail:
     image: grafana/promtail:latest
