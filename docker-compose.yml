@@ -37,6 +37,37 @@ services:
     networks:
       - monitoring_network
 
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor_container
+    user: root
+    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    networks:
+      - monitoring_network
+    ports:
+      - 60010:8080
+
+  node_exporter:
+    image: prom/node_exporter:latest
+    container_name: node_exporter_container
+    user: root
+    restart: always
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    command:
+      - '--path.rootfs=/host'
+    networks:
+      - monitoring_network
+    ports:
+      - 60020:9100
+
 volumes:
   grafana_data:
   promtail_data:
