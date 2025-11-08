@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  promtail:
+    image: grafana/promtail:latest
+    restart: always
+    volumes:
+      - /var/lib/docker/containers/:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/promtail/promtail.yml:/etc/promtail/promtail.yml
+      - promtail_data:/data/promtail
+    command: -config.file=/etc/promtail/promtail.yml
+    networks:
+      - monitoring_network
+
+volumes:
+  promtail_data:
+
+networks:
+  monitoring_network:
