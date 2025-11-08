@@ -38,7 +38,7 @@ services:
       - monitoring_network
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: gcr.io/cadvisor:latest
     container_name: cadvisor_container
     user: root
     restart: always
