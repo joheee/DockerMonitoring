@@ -43,9 +43,10 @@ services:
     user: root
     restart: always
     volumes:
-      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus/prometheus.yml:/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
+      - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=7d'
     networks:
       - monitoring_network
